@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "3x1io/filament-user": "^1.1",
+        "bezhansalleh/filament-shield": "^2.2",
         "filament/filament": "^2.16",
         "filament/notifications": "^2.16",
         "filament/spatie-laravel-media-library-plugin": "^2.16",
@@ -13,10 +15,10 @@
         "filament/spatie-laravel-tags-plugin": "^2.16",
         "filament/spatie-laravel-translatable-plugin": "^2.16",
         "guzzlehttp/guzzle": "^7.2",
+        "jeffgreco13/filament-breezy": "^1.4",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7",
-        "phpsa/filament-authentication": "^2.2"
+        "laravel/tinker": "^2.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

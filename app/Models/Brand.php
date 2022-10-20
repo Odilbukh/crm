@@ -15,6 +15,8 @@ class Brand extends Model
 
     protected $table = 'brands';
 
+    protected $guarded = [];
+
     protected $casts = [
         'is_visible' => 'boolean',
     ];
