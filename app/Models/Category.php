@@ -16,6 +16,7 @@ class Category extends Model
 
     protected $table = 'categories';
 
+    protected $guarded = [];
     protected $casts = [
         'is_visible' => 'boolean',
     ];

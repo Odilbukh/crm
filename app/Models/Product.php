@@ -18,6 +18,38 @@ class Product extends Model
 
     protected $table = 'products';
 
+    protected $fillable = [
+        'brand_id',
+        'creator_id',
+        'name',
+        'slug',
+        'sku',
+        'barcode',
+        'descrioption',
+        'qty',
+        'security_stock',
+        'is_visible',
+        'price',
+        'old_price',
+        'net_price',
+        'type',
+        'backorder',
+        'requires_shipping',
+        'published_at',
+        'seo_title',
+        'seo_description',
+        'weight_value',
+        'weight_unit',
+        'height_value',
+        'height_unit',
+        'width_value',
+        'width_unit',
+        'depth_value',
+        'depth_unit',
+        'volume_value',
+        'volume_unit',
+    ];
+
     protected $casts = [
         'featured' => 'boolean',
         'is_visible' => 'boolean',
