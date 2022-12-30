@@ -16,7 +16,16 @@ class Order extends Model
 
     protected $table = 'orders';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'customer_id',
+        'status',
+        'number',
+        'total_price',
+        'currency',
+        'shipping_price',
+        'shipping_method',
+        'notes',
+    ];
 
     public function address(): MorphOne
     {
