@@ -2,19 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Product;
-use Squire\Models\Currency;
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\RelationManagers\PaymentsRelationManager;
+use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 use App\Forms\AddressForm;
 use App\Models\Order;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Carbon;
+use Squire\Models\Currency;
 
 class OrderResource extends Resource
 {
@@ -199,10 +202,69 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('number')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('customer.name')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->colors([
+                        'danger' => 'cancelled',
+                        'warning' => 'processing',
+                        'success' => fn ($state) => in_array($state, ['delivered', 'shipped']),
+                    ]),
+                Tables\Columns\TextColumn::make('currency')
+                    ->getStateUsing(fn ($record): ?string => Currency::find($record->currency)?->name ?? null)
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('total_price')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('shipping_price')
+                    ->label('Shipping cost')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Order Date')
+                    ->date()
+                    ->toggleable(),
             ])
             ->filters([
-                //
+                Tables\Filters\TrashedFilter::make(),
+
+                Tables\Filters\Filter::make('created_at')
+                    ->form([
+                        Forms\Components\DatePicker::make('created_from')
+                            ->placeholder(fn ($state): string => 'Jan 01, ' . now()->format('Y')),
+                        Forms\Components\DatePicker::make('created_until')
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+                    ->indicateUsing(function (array $data): array {
+                        $indicators = [];
+                        if ($data['created_from'] ?? null) {
+                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                        }
+                        if ($data['created_until'] ?? null) {
+                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                        }
+
+                        return $indicators;
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -215,7 +277,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PaymentsRelationManager::class
         ];
     }
 
@@ -227,4 +289,41 @@ class OrderResource extends Resource
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->withoutGlobalScope(SoftDeletingScope::class);
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['number', 'customer.name'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        /** @var Order $record */
+
+        return [
+            'Customer' => optional($record->customer)->name,
+        ];
+    }
+
+    protected static function getGlobalSearchEloquentQuery(): Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['customer', 'items']);
+    }
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return static::$model::where('status', 'new')->count();
+    }
+
+//    public static function getWidgets(): array
+//    {
+//        return [
+//            OrderStats::class,
+//        ];
+//    }
+
 }

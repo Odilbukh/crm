@@ -19,14 +19,14 @@ npm install
 php artisan key:generate
 ```
 
-4. Connect your DB in .env file
+4. Fill these fields in .env file to connect your DB 
 
 DB_CONNECTION=mysql<br>
 DB_HOST=127.0.0.1<br>
 DB_PORT=3306<br>
-DB_DATABASE=crm<br>
-DB_USERNAME=asus<br>
-DB_PASSWORD=asus<br>
+DB_DATABASE=<br>
+DB_USERNAME=<br>
+DB_PASSWORD=<br>
 
 5. Run migrations and seeders to fill DB with tables
 
