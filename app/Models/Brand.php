@@ -15,7 +15,16 @@ class Brand extends Model
 
     protected $table = 'brands';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'website',
+        'description',
+        'position',
+        'is_visible',
+        'seo_title',
+        'seo_description',
+        'sort',
+    ];
 
     protected $casts = [
         'is_visible' => 'boolean',

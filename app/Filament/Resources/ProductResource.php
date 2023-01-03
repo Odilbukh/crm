@@ -5,11 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BrandResource\RelationManagers\ProductsRelationManager;
 use App\Filament\Resources\ProductResource\Pages;
 use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Notifications\Notification;
 use Filament\Resources\Form;
@@ -17,9 +14,8 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Squire\Models\Currency;
 
 class ProductResource extends Resource
 {
@@ -64,6 +60,7 @@ class ProductResource extends Resource
                             ->collection('product-images')
                             ->multiple()
                             ->maxFiles(5)
+                            ->enableReordering()
                             ->disableLabel(),
                     ])
                         ->collapsible(),
@@ -99,14 +96,16 @@ class ProductResource extends Resource
                         Forms\Components\TextInput::make('qty')
                             ->label('Quantity')
                             ->numeric()
-                            ->rules(['integer', 'min:0']),
+                            ->rules(['integer', 'min:0'])
+                            ->default(0),
 
                         Forms\Components\TextInput::make('security_stock')
                             ->helperText(
                                 'The safety stock is the limit stock for your products which alerts you if the product stock will soon be out of stock.'
                             )
                             ->numeric()
-                            ->rules(['integer', 'min:0']),
+                            ->rules(['integer', 'min:0'])
+                            ->default(0),
 
                         Forms\Components\TextInput::make('weight_value')
                             ->label('Weight value')
@@ -182,7 +181,6 @@ class ProductResource extends Resource
                                     ->required(),
 
                                 Forms\Components\TextInput::make('website')
-                                    ->url()
                                     ->required(),
                             ])
                             ->createOptionAction(function (Forms\Components\Actions\Action $action) {
@@ -302,7 +300,7 @@ class ProductResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // RelationManagers\CommentsRelationManager::class,
         ];
     }
 
@@ -313,5 +311,36 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
+    }
+
+//    public static function getWidgets(): array
+//    {
+//        return [
+//            ProductStats::class,
+//        ];
+//    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'sku', 'brand.name'];
+    }
+
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        /** @var Product $record */
+
+        return [
+            'Brand' => optional($record->brand)->name,
+        ];
+    }
+
+    protected static function getGlobalSearchEloquentQuery(): Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['brand']);
+    }
+
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::whereColumn('qty', '<', 'security_stock')->count();
     }
 }
