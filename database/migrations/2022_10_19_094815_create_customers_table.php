@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('photo')->nullable();
             $table->enum('gender', ['male', 'female']);
-            $table->string('phone')->nullable();
+            $table->string('phone_1')->nullable();
+            $table->string('phone_2')->nullable();
+            $table->string('company')->nullable();
+            $table->string('position')->nullable();
             $table->date('birthday')->nullable();
             $table->boolean('in_blacklist')->default(false);
+            $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

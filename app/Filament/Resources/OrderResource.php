@@ -4,11 +4,12 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers\PaymentsRelationManager;
-use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 use App\Forms\AddressForm;
 use App\Models\Order;
 use App\Models\Product;
+use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -75,11 +76,11 @@ class OrderResource extends Resource
                             ->default('new')
                             ->required(),
                         Forms\Components\Select::make('currency')
-                            ->searchable()
                             ->getSearchResultsUsing(
                                 fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
                             )
                             ->getOptionLabelUsing(fn($value): ?string => Currency::find($value)?->getAttribute('name'))
+                            ->searchable()
                             ->required(),
                         Forms\Components\Select::make('shipping_method')
                             ->options([
@@ -94,62 +95,12 @@ class OrderResource extends Resource
 
 
                         Forms\Components\MarkdownEditor::make('notes')
-                            ->columnSpan('full'),
+                            ->columnSpanFull(),
 
                     ])->columns([
                         'sm' => 2,
                     ]),
 
-                    Forms\Components\Group::make()->schema([
-                        Forms\Components\Section::make('List Products')->schema([
-
-                            Forms\Components\Repeater::make('items')
-                                ->relationship()
-                                ->schema([
-                                    Forms\Components\Select::make('product_id')
-                                        ->label('Product')
-                                        ->options(Product::query()->pluck('name', 'id'))
-                                        ->required()
-                                        ->reactive()
-                                        ->afterStateUpdated(
-                                            fn($state, callable $set) => $set(
-                                                'unit_price',
-                                                Product::find($state)?->price ?? 0
-                                            )
-                                        )
-                                        ->columnSpan([
-                                            'md' => 5,
-                                        ]),
-
-                                    Forms\Components\TextInput::make('unit_price')
-                                        ->label('Price')
-                                        ->disabled()
-                                        ->numeric()
-                                        ->required()
-                                        ->columnSpan([
-                                            'md' => 3,
-                                        ]),
-
-                                    Forms\Components\TextInput::make('qty')
-                                        ->label('Quantity')
-                                        ->numeric()
-                                        ->rules(['integer', 'min:0'])
-                                        ->default(1)
-                                        ->columnSpan([
-                                            'md' => 2,
-                                        ])
-                                        ->required(),
-
-                                ])
-                                ->orderable()
-                                ->defaultItems(1)
-                                ->disableLabel()
-                                ->columns([
-                                    'md' => 10,
-                                ])
-                                ->required(),
-                        ])
-                    ])
                 ])->columnSpan([
                     'sm' => 2,
                 ]),
@@ -158,7 +109,6 @@ class OrderResource extends Resource
                     Forms\Components\Card::make()->schema([
                         Forms\Components\TextInput::make('total_price')
                             ->label('Total Price')
-                            ->disabled()
                             ->numeric()
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
                             ->required()
@@ -166,19 +116,19 @@ class OrderResource extends Resource
                                 'md' => 3,
                             ]),
 
-                        Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(
-                                fn(?Order $record): string => $record ? $record->created_at->diffForHumans() : '-'
-                            )
-                            ->hidden(fn(?Order $record) => $record === null),
-
-                        Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(
-                                fn(?Order $record): string => $record ? $record->updated_at->diffForHumans() : '-'
-                            )
-                            ->hidden(fn(?Order $record) => $record === null),
+//                        Forms\Components\Placeholder::make('created_at')
+//                            ->label('Created at')
+//                            ->content(
+//                                fn(?Order $record): string => $record ? $record->created_at->diffForHumans() : '-'
+//                            )
+//                            ->hidden(fn(?Order $record) => $record === null),
+//
+//                        Forms\Components\Placeholder::make('updated_at')
+//                            ->label('Last modified at')
+//                            ->content(
+//                                fn(?Order $record): string => $record ? $record->updated_at->diffForHumans() : '-'
+//                            )
+//                            ->hidden(fn(?Order $record) => $record === null),
                     ])
                         ->columnSpan(1),
 
@@ -188,6 +138,74 @@ class OrderResource extends Resource
                     ])
                         ->columnSpan(1),
                 ]),
+
+                Forms\Components\Group::make()->schema([
+                    Forms\Components\Section::make('List Products')->schema([
+                        Forms\Components\Repeater::make('items')
+                            ->relationship()
+                            ->schema([
+                                Forms\Components\Select::make('product_id')
+                                    ->label('Product')
+                                    ->options(Product::query()->pluck('name', 'id'))
+                                    ->required()
+                                    ->lazy()
+                                    ->afterStateUpdated(
+                                        fn($state, callable $set) => $set(
+                                            'unit_price',
+                                            Product::find($state)?->price ?? 0
+                                        )
+                                    )
+                                    ->columnSpan([
+                                        'md' => 4,
+                                    ]),
+
+                                Forms\Components\TextInput::make('unit_price')
+                                    ->label('Price')
+                                    ->disabled()
+                                    ->numeric()
+                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
+                                    ->required()
+                                    ->columnSpan([
+                                        'md' => 3,
+                                    ]),
+
+                                Forms\Components\TextInput::make('qty')
+                                    ->label('Quantity')
+                                    ->numeric()
+                                    ->rules(['integer', 'min:0'])
+                                    ->default(1)
+                                    ->columnSpan([
+                                        'md' => 1,
+                                    ])
+                                    ->required()
+                                    ->lazy()
+                                    ->afterStateUpdated(
+                                        fn(Closure $get, $state, callable $set) => $set(
+                                            'total_price',
+                                            (int)Product::find($get('product_id'))?->price * (int)$state ?? 0
+                                        )
+                                    ),
+
+                                Forms\Components\TextInput::make('total_price')
+                                    ->label('Total Price')
+                                    ->disabled()
+                                    ->numeric()
+//                                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
+                                    ->required()
+                                    ->columnSpan([
+                                        'md' => 2,
+                                    ]),
+
+                            ])
+                            ->orderable()
+                            ->defaultItems(1)
+                            ->disableLabel()
+                            ->columns([
+                                'md' => 10,
+                            ])
+                            ->required(),
+                    ])
+                ])->columnSpan('full'),
             ])
             ->columns([
                 'sm' => 3,

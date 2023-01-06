@@ -16,6 +16,20 @@ class Customer extends Model
 
     protected $table = 'customers';
 
+    protected $fillable = [
+        'name',
+        'email',
+        'photo',
+        'gender',
+        'phone_1',
+        'phone_2',
+        'birthday',
+        'in_blacklist',
+        'notes',
+        'company',
+        'position'
+    ];
+
     protected $casts = [
         'birthday' => 'date',
     ];

@@ -37,7 +37,7 @@ class ProductResource extends Resource
                     Forms\Components\Card::make()->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
-                            ->reactive()
+                            ->lazy()
                             ->afterStateUpdated(
                                 fn(string $context, $state, callable $set) => $context === 'create' ? $set(
                                     'slug',
@@ -68,8 +68,9 @@ class ProductResource extends Resource
                     Forms\Components\Section::make('Pricing')->schema([
                         Forms\Components\TextInput::make('price')
                             ->numeric()
-                            ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                            ->required(),
+                            ->required()
+                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2)),
+
 
                         Forms\Components\TextInput::make('old_price')
                             ->label('Compare at price')
