@@ -24,11 +24,14 @@ class AddressForm extends Forms\Components\Field
         $record = $this->getRecord();
         $relationship = $record->{$this->getRelationship()}();
 
-        if ($address = $relationship->first()) {
-            $address->update($state);
-        } else {
-            $relationship->updateOrCreate($state);
+        if (in_array(!null, $state)) {
+            if ($address = $relationship->first()) {
+                $address->update($state);
+            } else {
+                $relationship->updateOrCreate($state);
+            }
         }
+
 
         $record->touch();
     }

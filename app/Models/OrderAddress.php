@@ -10,7 +10,7 @@ class OrderAddress extends Model
 {
     use HasFactory;
 
-    protected $table = 'order_addresses';
+    protected $table = 'addresses';
 
     protected $fillable = [
         'addressable',

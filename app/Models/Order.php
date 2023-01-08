@@ -30,7 +30,7 @@ class Order extends Model
 
     public function address(): MorphOne
     {
-        return $this->morphOne(OrderAddress::class, 'addressable');
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function customer(): BelongsTo

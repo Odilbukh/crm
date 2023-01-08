@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Address extends Model
 {
@@ -11,13 +12,28 @@ class Address extends Model
 
     protected $table = 'addresses';
 
-    public function customers()
+    protected $fillable = [
+        'addressable',
+        'country',
+        'street',
+        'city',
+        'state',
+        'zip',
+        'full_address',
+    ];
+
+    public function addressable(): MorphTo
     {
-        return $this->morphedByMany(Customer::class, 'addressable');
+        return $this->morphTo();
     }
 
-    public function brands()
-    {
-        return $this->morphedByMany(Brand::class, 'addressable');
-    }
+//    public function customers()
+//    {
+//        return $this->morphedByMany(Customer::class, 'addressable');
+//    }
+//
+//    public function brands()
+//    {
+//        return $this->morphedByMany(Brand::class, 'addressable');
+//    }
 }

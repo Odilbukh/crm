@@ -48,11 +48,11 @@ class CustomerResource extends Resource
                         ->label('Birthday')
                         ->maxDate('today'),
 
-                    Forms\Components\TextInput::make('phone')
+                    Forms\Components\TextInput::make('phone_1')
                         ->label('Phone')
                         ->maxValue(50),
 
-                    Forms\Components\TextInput::make('phone')
+                    Forms\Components\TextInput::make('phone_2')
                         ->label('Phone additional')
                         ->maxValue(50),
 
@@ -107,10 +107,11 @@ class CustomerResource extends Resource
                     ->toggleable(),
 
                 Tables\Columns\TextColumn::make('country')
-                    ->getStateUsing(fn ($record): ?string => Country::find($record->addresses->first()?->country)?->name ?? null)
+                    ->getStateUsing(fn ($record): ?string => Country::find($record->address?->country)?->name ?? null)
                     ->toggleable(),
 
-                Tables\Columns\TextColumn::make('phone')
+                Tables\Columns\TextColumn::make('phone_1')
+                    ->label('Phone')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
@@ -128,13 +129,13 @@ class CustomerResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->with('addresses')->withoutGlobalScope(SoftDeletingScope::class);
+        return parent::getEloquentQuery()->with('address')->withoutGlobalScope(SoftDeletingScope::class);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\AddressesRelationManager::class,
+//            RelationManagers\AddressesRelationManager::class,
             RelationManagers\PaymentsRelationManager::class,
         ];
     }
