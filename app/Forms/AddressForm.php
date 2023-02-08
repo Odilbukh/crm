@@ -53,14 +53,14 @@ class AddressForm extends Forms\Components\Field
                         ->label('Zip / Postal code'),
                 ]),
 
-            Forms\Components\Grid::make()
-                ->schema([
-                    Forms\Components\Select::make('country')
-                        ->searchable()
-                        ->getSearchResultsUsing(fn (string $query) => Country::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => Country::find($value)?->getAttribute('name'))
-                        ->columnSpanFull()
-                ]),
+//            Forms\Components\Grid::make()
+//                ->schema([
+//                    Forms\Components\Select::make('country')
+//                        ->searchable()
+//                        ->getSearchResultsUsing(fn (string $query) => Country::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
+//                        ->getOptionLabelUsing(fn ($value): ?string => Country::find($value)?->getAttribute('name'))
+//                        ->columnSpanFull()
+//                ]),
         ];
     }
 

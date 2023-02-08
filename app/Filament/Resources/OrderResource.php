@@ -79,7 +79,7 @@ class OrderResource extends Resource
                             ->getSearchResultsUsing(
                                 fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
                             )
-                            ->getOptionLabelUsing(fn($value): ?string => Currency::find($value)?->getAttribute('name'))
+                            ->getOptionLabelUsing(fn($record): ?string => Currency::find($record->currency)?->name ?? null)
                             ->searchable()
                             ->required(),
                         Forms\Components\Select::make('shipping_method')

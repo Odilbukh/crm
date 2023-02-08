@@ -4,26 +4,69 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PaymentResource\Pages;
 use App\Filament\Resources\PaymentResource\RelationManagers;
+use App\Models\Order;
 use App\Models\Payment;
 use Filament\Forms;
 use Filament\Resources\Form;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
+use Squire\Models\Currency;
 
 class PaymentResource extends Resource
 {
     protected static ?string $model = Payment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $slug = 'shop/payments';
+
+    protected static ?string $recordTitleAttribute = 'number';
+
+    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Select::make('order_id')
+                    ->label('Order')
+                    ->options(Order::query()->pluck('number', 'id'))
+                    ->searchable(),
+
+                Forms\Components\TextInput::make('reference')
+                    ->columnSpan(1)
+                    ->required(),
+
+                Forms\Components\TextInput::make('amount')
+                    ->numeric()
+                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
+                    ->required(),
+
+                Forms\Components\Select::make('currency')
+                    ->getSearchResultsUsing(
+                        fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
+                    )
+                    ->getOptionLabelUsing(fn($value): ?string => Currency::find($value)?->getAttribute('name'))
+                    ->searchable(),
+
+                Forms\Components\Select::make('provider')
+                    ->options([
+                        'click' => 'Click',
+                        'payme' => 'Payme',
+                        'stripe' => 'Stripe',
+                        'paypal' => 'PayPal',
+                    ]),
+
+                Forms\Components\Select::make('method')
+                    ->options([
+                        'cash' => 'Cash',
+                        'credit_card' => 'Credit card',
+                        'bank_transfer' => 'Bank transfer',
+                    ]),
             ]);
     }
 
@@ -31,13 +74,45 @@ class PaymentResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('order.number')
+                    ->url(fn($record) => OrderResource::getUrl('edit', [$record->order]))
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('reference')
+                    ->searchable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('amount')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('provider')
+                    ->formatStateUsing(fn($state) => Str::headline($state))
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('method')
+                    ->formatStateUsing(fn($state) => Str::headline($state))
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 //
             ])
+            ->headerActions([
+//                Tables\Actions\CreateAction::make(),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

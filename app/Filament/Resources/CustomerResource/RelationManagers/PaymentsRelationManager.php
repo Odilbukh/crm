@@ -24,11 +24,11 @@ class PaymentsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\Select::make('order_id')
                     ->label('Order')
-                    ->relationship(
-                        'order',
-                        'number',
-                        fn(Builder $query, RelationManager $livewire) => $query->whereBelongsTo($livewire->ownerRecord)
-                    )
+//                    ->relationship(
+//                        'order',
+//                        'number',
+//                        fn(Builder $query, RelationManager $livewire) => $query->whereBelongsTo($livewire->ownerRecord)
+//                    )
                     ->searchable()
                     ->hiddenOn('edit')
                     ->required(),
@@ -39,7 +39,7 @@ class PaymentsRelationManager extends RelationManager
 
                 Forms\Components\TextInput::make('amount')
                     ->numeric()
-                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
+                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
                     ->required(),
 
                 Forms\Components\Select::make('currency')

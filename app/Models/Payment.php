@@ -14,7 +14,13 @@ class Payment extends Model
 
     protected $table = 'payments';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'reference',
+        'provider',
+        'method',
+        'amount',
+        'currency'
+    ];
 
     public function order(): BelongsTo
     {

@@ -24,17 +24,8 @@ class PaymentsRelationManager extends RelationManager
 
                 Forms\Components\TextInput::make('amount')
                     ->numeric()
-                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
+                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
                     ->required(),
-
-//                Forms\Components\Select::make('currency')
-//                    ->options(
-//                        collect(Currency::getCurrencies())->mapWithKeys(
-//                            fn($item, $key) => [$key => data_get($item, 'name')]
-//                        )
-//                    )
-//                    ->searchable()
-//                    ->required(),
 
                 Forms\Components\Select::make('currency')
                     ->getSearchResultsUsing(

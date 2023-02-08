@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('reference');
             $table->string('provider')->nullable();
             $table->string('method')->nullable();
-            $table->decimal('amount', 10, 2)->default(0);
+            $table->decimal('amount', 12, 2)->default(0);
             $table->string('currency')->nullable();
             $table->timestamps();
             $table->softDeletes();
