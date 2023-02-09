@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Category extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
+//    use InteractsWithMedia;
 
     protected $table = 'categories';
 

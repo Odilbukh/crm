@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Brand extends Model
 {
     use HasFactory;
-    use InteractsWithMedia;
+//    use InteractsWithMedia;
 
     protected $table = 'brands';
 
