@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "080f89d92b85c5a6747a7649fb6a4868",
+    "content-hash": "312e625cfcef4bf69229fc475dfd4c3d",
     "packages": [
         {
             "name": "3x1io/filament-user",
@@ -197,21 +197,21 @@
         },
         {
             "name": "bezhansalleh/filament-shield",
-            "version": "2.3.2",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bezhanSalleh/filament-shield.git",
-                "reference": "b2700e3cc376724dce592a9e346b8c5e57d3f616"
+                "reference": "7efc9476dcdde41be0c0f6d77fe993f9abea4ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bezhanSalleh/filament-shield/zipball/b2700e3cc376724dce592a9e346b8c5e57d3f616",
-                "reference": "b2700e3cc376724dce592a9e346b8c5e57d3f616",
+                "url": "https://api.github.com/repos/bezhanSalleh/filament-shield/zipball/7efc9476dcdde41be0c0f6d77fe993f9abea4ffa",
+                "reference": "7efc9476dcdde41be0c0f6d77fe993f9abea4ffa",
                 "shasum": ""
             },
             "require": {
                 "filament/filament": "^2.13",
-                "illuminate/contracts": "^8.6|^9.0",
+                "illuminate/contracts": "^8.6|^9.0|^10.0",
                 "php": "^8.0|^8.1",
                 "spatie/invade": "^1.0",
                 "spatie/laravel-package-tools": "^1.9.2",
@@ -274,7 +274,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bezhanSalleh/filament-shield/issues",
-                "source": "https://github.com/bezhanSalleh/filament-shield/tree/2.3.2"
+                "source": "https://github.com/bezhanSalleh/filament-shield/tree/2.4.1"
             },
             "funding": [
                 {
@@ -282,7 +282,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-11-16T21:41:17+00:00"
+            "time": "2023-02-10T05:03:01+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1353,16 +1353,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/app.git",
-                "reference": "b4ab01eff38ff98489ea60dacc4ee5c41a14f6a9"
+                "reference": "d07e7cabe4bf40381f35cf1155cde9cdfd9f52bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/app/zipball/b4ab01eff38ff98489ea60dacc4ee5c41a14f6a9",
-                "reference": "b4ab01eff38ff98489ea60dacc4ee5c41a14f6a9",
+                "url": "https://api.github.com/repos/filamentphp/app/zipball/d07e7cabe4bf40381f35cf1155cde9cdfd9f52bd",
+                "reference": "d07e7cabe4bf40381f35cf1155cde9cdfd9f52bd",
                 "shasum": ""
             },
             "require": {
@@ -1412,20 +1412,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-02-04T12:25:56+00:00"
+            "time": "2023-02-09T17:27:21+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "a08902f520f30b393221de42d3691b751ec12d33"
+                "reference": "0a02fb605928e228ea0c22bd3d7867035f48a5c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/a08902f520f30b393221de42d3691b751ec12d33",
-                "reference": "a08902f520f30b393221de42d3691b751ec12d33",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/0a02fb605928e228ea0c22bd3d7867035f48a5c8",
+                "reference": "0a02fb605928e228ea0c22bd3d7867035f48a5c8",
                 "shasum": ""
             },
             "require": {
@@ -1470,20 +1470,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-02-01T14:43:33+00:00"
+            "time": "2023-02-09T17:27:19+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
-                "reference": "ac289e6da65f9c30cfead2e905d86b8f69b81641"
+                "reference": "d8ffd5fed8c9f2c95a7e9ed663cbab5ad8618841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/ac289e6da65f9c30cfead2e905d86b8f69b81641",
-                "reference": "ac289e6da65f9c30cfead2e905d86b8f69b81641",
+                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/d8ffd5fed8c9f2c95a7e9ed663cbab5ad8618841",
+                "reference": "d8ffd5fed8c9f2c95a7e9ed663cbab5ad8618841",
                 "shasum": ""
             },
             "require": {
@@ -1523,11 +1523,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-02-01T14:43:31+00:00"
+            "time": "2023-02-09T00:05:43+00:00"
         },
         {
             "name": "filament/spatie-laravel-media-library-plugin",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-media-library-plugin.git",
@@ -1564,7 +1564,7 @@
         },
         {
             "name": "filament/spatie-laravel-settings-plugin",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-settings-plugin.git",
@@ -1611,7 +1611,7 @@
         },
         {
             "name": "filament/spatie-laravel-tags-plugin",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-tags-plugin.git",
@@ -1648,7 +1648,7 @@
         },
         {
             "name": "filament/spatie-laravel-translatable-plugin",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/spatie-laravel-translatable-plugin.git",
@@ -1694,16 +1694,16 @@
         },
         {
             "name": "filament/support",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "584a0c2de4afdae410b28e46524a68d7ab874c1c"
+                "reference": "ec71eac0ff6e67610d80fc2b9bc36720cb9ecd77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/584a0c2de4afdae410b28e46524a68d7ab874c1c",
-                "reference": "584a0c2de4afdae410b28e46524a68d7ab874c1c",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/ec71eac0ff6e67610d80fc2b9bc36720cb9ecd77",
+                "reference": "ec71eac0ff6e67610d80fc2b9bc36720cb9ecd77",
                 "shasum": ""
             },
             "require": {
@@ -1740,20 +1740,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-02-04T12:26:20+00:00"
+            "time": "2023-02-09T00:05:48+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.16.68",
+            "version": "v2.16.70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "2dd37f70fe095ff13ecf449d93bf9e260c874e0e"
+                "reference": "3e3c786ab4c270a9396a370e76983ff8509bf896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/2dd37f70fe095ff13ecf449d93bf9e260c874e0e",
-                "reference": "2dd37f70fe095ff13ecf449d93bf9e260c874e0e",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/3e3c786ab4c270a9396a370e76983ff8509bf896",
+                "reference": "3e3c786ab4c270a9396a370e76983ff8509bf896",
                 "shasum": ""
             },
             "require": {
@@ -1796,7 +1796,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2023-02-01T14:44:17+00:00"
+            "time": "2023-02-09T00:05:45+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -5635,6 +5635,97 @@
             "time": "2022-07-05T09:31:00+00:00"
         },
         {
+            "name": "spatie/laravel-activitylog",
+            "version": "4.7.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-activitylog.git",
+                "reference": "ec65a478a909b8df1b4f0c3c45de2592ca7639e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/ec65a478a909b8df1b4f0c3c45de2592ca7639e5",
+                "reference": "ec65a478a909b8df1b4f0c3c45de2592ca7639e5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "^8.0 || ^9.0 || ^10.0",
+                "illuminate/database": "^8.69 || ^9.27 || ^10.0",
+                "illuminate/support": "^8.0 || ^9.0 || ^10.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.6.3"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "orchestra/testbench": "^6.23 || ^7.0 || ^8.0",
+                "pestphp/pest": "^1.20"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Activitylog\\ActivitylogServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Activitylog\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A very simple activity logger to monitor the users of your website or application",
+            "homepage": "https://github.com/spatie/activitylog",
+            "keywords": [
+                "activity",
+                "laravel",
+                "log",
+                "spatie",
+                "user"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-activitylog/issues",
+                "source": "https://github.com/spatie/laravel-activitylog/tree/4.7.3"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-01-25T17:04:51+00:00"
+        },
+        {
             "name": "spatie/laravel-medialibrary",
             "version": "10.7.10",
             "source": {
@@ -9113,6 +9204,80 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "z3d0x/filament-logger",
+            "version": "v0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Z3d0X/filament-logger.git",
+                "reference": "ddc6691c0ab74c08bb956d7c9c1744a540488e17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Z3d0X/filament-logger/zipball/ddc6691c0ab74c08bb956d7c9c1744a540488e17",
+                "reference": "ddc6691c0ab74c08bb956d7c9c1744a540488e17",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^2.11",
+                "illuminate/contracts": "^8.0 | ^9.0",
+                "php": "^8.0 | ^8.1",
+                "spatie/laravel-activitylog": "^4.5",
+                "spatie/laravel-package-tools": "^1.13.5"
+            },
+            "require-dev": {
+                "nunomaduro/collision": "^6.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.21",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Z3d0X\\FilamentLogger\\FilamentLoggerServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentLogger": "Z3d0X\\FilamentLogger\\Facades\\FilamentLogger"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Z3d0X\\FilamentLogger\\": "src",
+                    "Z3d0X\\FilamentLogger\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ziyaan Hassan",
+                    "email": "ziyaan2010@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Activity logger for filament",
+            "homepage": "https://github.com/z3d0x/filament-logger",
+            "keywords": [
+                "Z3d0X",
+                "filament-logger",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/Z3d0X/filament-logger/issues",
+                "source": "https://github.com/Z3d0X/filament-logger/tree/v0.4.2"
+            },
+            "time": "2022-12-22T09:36:19+00:00"
         }
     ],
     "packages-dev": [

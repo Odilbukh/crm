@@ -20,7 +20,8 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "squirephp/countries-en": "^3.3",
-        "squirephp/currencies-en": "^3.3"
+        "squirephp/currencies-en": "^3.3",
+        "z3d0x/filament-logger": "^0.4.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

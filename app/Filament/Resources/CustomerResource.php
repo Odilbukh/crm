@@ -26,7 +26,6 @@ class CustomerResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'shop/customers';
-
     public static function form(Form $form): Form
     {
         return $form->schema([

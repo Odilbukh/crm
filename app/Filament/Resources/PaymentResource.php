@@ -32,41 +32,43 @@ class PaymentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('order_id')
-                    ->label('Order')
-                    ->options(Order::query()->pluck('number', 'id'))
-                    ->searchable(),
+                Forms\Components\Card::make()->schema([
+                    Forms\Components\Select::make('order_id')
+                        ->label('Order')
+                        ->options(Order::query()->pluck('number', 'id'))
+                        ->searchable(),
 
-                Forms\Components\TextInput::make('reference')
-                    ->columnSpan(1)
-                    ->required(),
+                    Forms\Components\TextInput::make('reference')
+                        ->columnSpan(1)
+                        ->required(),
 
-                Forms\Components\TextInput::make('amount')
-                    ->numeric()
-                    ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
-                    ->required(),
+                    Forms\Components\TextInput::make('amount')
+                        ->numeric()
+                        ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
+                        ->required(),
 
-                Forms\Components\Select::make('currency')
-                    ->getSearchResultsUsing(
-                        fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
-                    )
-                    ->getOptionLabelUsing(fn($value): ?string => Currency::find($value)?->getAttribute('name'))
-                    ->searchable(),
+                    Forms\Components\Select::make('currency')
+                        ->getSearchResultsUsing(
+                            fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
+                        )
+                        ->getOptionLabelUsing(fn($value): ?string => Currency::find($value)?->getAttribute('name'))
+                        ->searchable(),
 
-                Forms\Components\Select::make('provider')
-                    ->options([
-                        'click' => 'Click',
-                        'payme' => 'Payme',
-                        'stripe' => 'Stripe',
-                        'paypal' => 'PayPal',
-                    ]),
+                    Forms\Components\Select::make('provider')
+                        ->options([
+                            'click' => 'Click',
+                            'payme' => 'Payme',
+                            'stripe' => 'Stripe',
+                            'paypal' => 'PayPal',
+                        ]),
 
-                Forms\Components\Select::make('method')
-                    ->options([
-                        'cash' => 'Cash',
-                        'credit_card' => 'Credit card',
-                        'bank_transfer' => 'Bank transfer',
-                    ]),
+                    Forms\Components\Select::make('method')
+                        ->options([
+                            'cash' => 'Cash',
+                            'credit_card' => 'Credit card',
+                            'bank_transfer' => 'Bank transfer',
+                        ]),
+                ])->columns(2)
             ]);
     }
 

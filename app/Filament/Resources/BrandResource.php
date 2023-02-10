@@ -31,7 +31,6 @@ class BrandResource extends Resource
                     ->required()
                     ->maxValue(50),
                 Forms\Components\TextInput::make('website')
-                    ->required()
                     ->url(),
                 Forms\Components\MarkdownEditor::make('description')
                     ->label('Description')

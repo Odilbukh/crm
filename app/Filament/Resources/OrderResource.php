@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers\PaymentsRelationManager;
 use App\Forms\AddressForm;
+use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
 use Closure;
@@ -43,7 +44,7 @@ class OrderResource extends Resource
                             ->required(),
 
                         Forms\Components\Select::make('customer_id')
-                            ->relationship('customer', 'name')
+                            ->options(Customer::query()->pluck('name', 'id'))
                             ->searchable()
                             ->required()
                             ->createOptionForm([
@@ -55,7 +56,8 @@ class OrderResource extends Resource
                                     ->required()
                                     ->unique(),
 
-                                Forms\Components\TextInput::make('phone')
+                                Forms\Components\TextInput::make('phone_1')
+                                    ->label('Phone number')
                                     ->required()
                             ])
                             ->createOptionAction(function (Forms\Components\Actions\Action $action) {
@@ -110,7 +112,7 @@ class OrderResource extends Resource
                             ->label('Total Price')
                             ->numeric()
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
-                            ->required()
+//                            ->required()
                             ->columnSpan([
                                 'md' => 3,
                             ]),
@@ -146,6 +148,7 @@ class OrderResource extends Resource
                                 Forms\Components\Select::make('product_id')
                                     ->label('Product')
                                     ->options(Product::query()->pluck('name', 'id'))
+                                    ->searchable()
                                     ->required()
                                     ->lazy()
                                     ->afterStateUpdated(

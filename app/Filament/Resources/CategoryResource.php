@@ -35,11 +35,7 @@ class CategoryResource extends Resource
                     ->maxValue(50),
                 Forms\Components\Select::make('parent_id')
                     ->label('Parent')
-                    ->relationship(
-                        'parent',
-                        'name',
-                        fn(Builder $query) => $query->where('parent_id', null)
-                    )
+                    ->options(Category::query()->pluck('name', 'id'))
                     ->searchable()
                     ->placeholder('Select parent category'),
 
