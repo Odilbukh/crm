@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\OrderResource\Widgets;
+namespace App\Filament\Widgets;
 
 use App\Models\Customer;
 use App\Models\Order;
@@ -10,7 +10,7 @@ use Filament\Widgets\Widget;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
 
-class OrderStats extends StatsOverviewWidget
+class DashboardStats extends StatsOverviewWidget
 {
     protected function getCards(): array
     {
@@ -34,15 +34,17 @@ class OrderStats extends StatsOverviewWidget
             Card::make('Orders', Order::count())
                 ->chart(
                     $orderData
-                        ->map(fn (TrendValue $value) => $value->aggregate)
+                        ->map(fn(TrendValue $value) => $value->aggregate)
                         ->toArray()
-                ),
+                )
+                ->color('success'),
             Card::make('Customers', Order::count())
                 ->chart(
                     $customerData
-                        ->map(fn (TrendValue $value) => $value->aggregate)
+                        ->map(fn(TrendValue $value) => $value->aggregate)
                         ->toArray()
-                ),
+                )
+                ->color('success'),
             Card::make('Open orders', Order::whereIn('status', ['new', 'processing', 'shipped'])->count()),
             Card::make('Average price', number_format(Order::avg('total_price'), 2)),
         ];

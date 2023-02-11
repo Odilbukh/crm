@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers\PaymentsRelationManager;
+use App\Filament\Resources\OrderResource\Widgets\OrderStats;
 use App\Forms\AddressForm;
 use App\Models\Customer;
 use App\Models\Order;

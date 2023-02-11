@@ -30,4 +30,9 @@ class ListOrders extends ListRecords
             Tables\Actions\DeleteAction::make(),
         ];
     }
+
+//    protected function getHeaderWidgets(): array
+//    {
+//        return OrderResource::getWidgets();
+//    }
 }

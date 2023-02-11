@@ -269,7 +269,8 @@ class ProductResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
 
-                Tables\Columns\BooleanColumn::make('is_visible')
+                Tables\Columns\IconColumn::make('is_visible')
+                    ->boolean()
                     ->label('Visibility')
                     ->sortable()
                     ->toggleable(),

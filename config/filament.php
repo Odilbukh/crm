@@ -139,6 +139,7 @@ return [
         'namespace' => 'App\\Filament\\Widgets',
         'path' => app_path('Filament/Widgets'),
         'register' => [
+            \App\Filament\Widgets\DashboardStats::class
 //            Widgets\AccountWidget::class,
 //            Widgets\FilamentInfoWidget::class,
         ],
