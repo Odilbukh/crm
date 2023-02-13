@@ -7,6 +7,7 @@ use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Forms\AddressForm;
 use App\Models\Customer;
 use Filament\Forms;
+use Filament\Forms\Components\Tabs;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -26,6 +27,7 @@ class CustomerResource extends Resource
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'shop/customers';
+
     public static function form(Form $form): Form
     {
         return $form->schema([
@@ -54,14 +56,6 @@ class CustomerResource extends Resource
                     Forms\Components\TextInput::make('phone_2')
                         ->label('Phone additional')
                         ->maxValue(50),
-
-                    Forms\Components\TextInput::make('company')
-                        ->label('Company')
-                        ->maxValue(255),
-
-                    Forms\Components\TextInput::make('position')
-                        ->label('Position')
-                        ->maxValue(255),
 
                     Forms\Components\MarkdownEditor::make('notes')
                         ->columnSpanFull(),
@@ -105,14 +99,20 @@ class CustomerResource extends Resource
                     ->sortable()
                     ->toggleable(),
 
-                Tables\Columns\TextColumn::make('country')
-                    ->getStateUsing(fn ($record): ?string => Country::find($record->address?->country)?->name ?? null)
-                    ->toggleable(),
-
                 Tables\Columns\TextColumn::make('phone_1')
                     ->label('Phone')
                     ->searchable()
                     ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->sortable()
+                    ->dateTime()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->sortable()
+                    ->dateTime()
                     ->toggleable(),
             ])
             ->filters([

@@ -16,16 +16,19 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('photo')->nullable();
-            $table->enum('gender', ['male', 'female']);
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone_1')->nullable();
             $table->string('phone_2')->nullable();
-            $table->string('company')->nullable();
-            $table->string('position')->nullable();
+            $table->string('tax_number')->nullable();
+            $table->string('bank_account_number')->nullable();
             $table->date('birthday')->nullable();
+            $table->enum('type', ['person', 'company'])->nullable();
             $table->boolean('in_blacklist')->default(false);
             $table->text('notes')->nullable();
+            $table->string('position')->nullable();
+            $table->foreignId('company_id')->nullable()->constrained('customers')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
         });

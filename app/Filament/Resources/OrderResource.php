@@ -176,7 +176,7 @@ class OrderResource extends Resource
                                     ->label('Quantity')
                                     ->numeric()
                                     ->rules(['integer', 'min:0'])
-                                    ->default(1)
+                                    ->default(0)
                                     ->columnSpan([
                                         'md' => 1,
                                     ])

@@ -8,11 +8,9 @@ use App\Models\Order;
 use App\Models\Payment;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 use Squire\Models\Currency;
 
@@ -22,7 +20,7 @@ class PaymentResource extends Resource
 
     protected static ?string $slug = 'shop/payments';
 
-    protected static ?string $recordTitleAttribute = 'number';
+    protected static ?string $recordTitleAttribute = 'reference';
 
     protected static ?string $navigationIcon = 'heroicon-o-credit-card';
 
@@ -77,7 +75,7 @@ class PaymentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order.number')
-                    ->url(fn($record) => OrderResource::getUrl('edit', [$record->order]))
+                    ->url(fn($record): ?string => $record->order ? OrderResource::getUrl('edit', [$record->order]) : 'Order was deleted')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\CustomerTypeEnum;
+use App\Enums\GenderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,12 +28,15 @@ class Customer extends Model
         'birthday',
         'in_blacklist',
         'notes',
-        'company',
-        'position'
+        'tax_number',
+        'bank_account',
+        'type',
     ];
 
     protected $casts = [
         'birthday' => 'date',
+        'gender' => GenderEnum::class,
+        'type' => CustomerTypeEnum::class
     ];
 
     public function address(): MorphOne

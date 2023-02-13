@@ -5,9 +5,11 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "3x1io/filament-user": "^1.1",
+        "bezhansalleh/filament-language-switch": "^1.0",
         "bezhansalleh/filament-shield": "^2.2",
+        "buildix/timex": "^1.1",
         "filament/filament": "^2.16",
         "filament/notifications": "^2.16",
         "filament/spatie-laravel-media-library-plugin": "^2.16",
@@ -21,8 +23,11 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "leandrocfe/filament-apex-charts": "^0.1.5",
+        "psr/simple-cache": "^2.0",
+        "pxlrbt/filament-excel": "^1.1",
         "squirephp/countries-en": "^3.3",
         "squirephp/currencies-en": "^3.3",
+        "stijnvanouplines/blade-country-flags": "^1.0",
         "z3d0x/filament-logger": "^0.4.2"
     },
     "require-dev": {
@@ -58,7 +63,8 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php artisan filament:upgrade"
         ]
     },
     "extra": {

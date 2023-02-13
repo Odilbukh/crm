@@ -99,6 +99,8 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label(trans('filament-user::user.resource.email_verified_at')),
+                TextColumn::make('roles.name')
+                    ->label('Roles'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label(trans('filament-user::user.resource.created_at'))
                     ->dateTime('d/m/Y')
