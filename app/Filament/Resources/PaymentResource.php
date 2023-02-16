@@ -75,7 +75,7 @@ class PaymentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order.number')
-                    ->url(fn($record): ?string => $record->order ? OrderResource::getUrl('edit', [$record->order]) : 'Order was deleted')
+                    ->url(fn($record): ?string => $record->order ? OrderResource::getUrl('edit', [$record->order]) : $record->order_number)
                     ->searchable()
                     ->sortable()
                     ->toggleable(),

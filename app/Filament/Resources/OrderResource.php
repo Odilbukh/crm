@@ -45,7 +45,8 @@ class OrderResource extends Resource
                             ->required(),
 
                         Forms\Components\Select::make('customer_id')
-                            ->options(Customer::query()->pluck('name', 'id'))
+                            ->relationship('customer', 'name')
+                            ->label('Customer')
                             ->searchable()
                             ->required()
                             ->createOptionForm([

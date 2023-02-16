@@ -19,7 +19,9 @@ class Payment extends Model
         'provider',
         'method',
         'amount',
-        'currency'
+        'currency',
+        'order_number',
+        'order_id',
     ];
 
     public function order(): BelongsTo

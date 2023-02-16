@@ -343,6 +343,6 @@ class ProductResource extends Resource
 
     protected static function getNavigationBadge(): ?string
     {
-        return self::$model::whereColumn('qty', '<', 'security_stock')->count();
+        return self::$model::count();
     }
 }
