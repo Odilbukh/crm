@@ -64,7 +64,7 @@ return [
         'timex' => \Buildix\Timex\Pages\Timex::class,
         'slug' => 'timex',
         'group' => 'timex',
-        'sort' => 0,
+        'sort' => -1,
         'shouldRegisterNavigation' => true,
         'enablePolicy' => false,
         'modalWidth' => 'xl',

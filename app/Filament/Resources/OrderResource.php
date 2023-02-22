@@ -9,6 +9,7 @@ use App\Forms\AddressForm;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Settings\GeneralSettings;
 use Closure;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -79,13 +80,9 @@ class OrderResource extends Resource
                             ])
                             ->default('new')
                             ->required(),
-                        Forms\Components\Select::make('currency')
-                            ->getSearchResultsUsing(
-                                fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
-                            )
-                            ->getOptionLabelUsing(fn($record): ?string => Currency::find($record->currency)?->name ?? null)
-                            ->searchable()
-                            ->required(),
+                        Forms\Components\TextInput::make('currency')
+                            ->default(fn(GeneralSettings $settings): string => Currency::find($settings->site_currency)?->name ?? null)
+                            ->disabled(),
                         Forms\Components\Select::make('shipping_method')
                             ->options([
                                 'currier' => 'Currier',
