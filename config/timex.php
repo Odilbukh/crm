@@ -145,7 +145,7 @@ return [
     ],
 
     'resources' => [
-        'event' => \Buildix\Timex\Resources\EventResource::class,
+        'event' => \App\Filament\Resources\EventResource::class,
         'sort' => 1,
         'icon' => 'heroicon-o-calendar',
         'slug' => 'timex-events',
