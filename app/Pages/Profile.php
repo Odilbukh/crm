@@ -2,6 +2,7 @@
 
 namespace App\Pages;
 
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Pages\Page;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Grid;

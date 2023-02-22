@@ -53,4 +53,9 @@ class Customer extends Model
     {
         return $this->hasManyThrough(Payment::class, Order::class, 'customer_id');
     }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

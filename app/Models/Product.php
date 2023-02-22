@@ -54,7 +54,7 @@ class Product extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'featured' => 'boolean',
+//        'featured' => 'boolean',
         'is_visible' => 'boolean',
         'backorder' => 'boolean',
         'requires_shipping' => 'boolean',

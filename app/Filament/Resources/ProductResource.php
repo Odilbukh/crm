@@ -20,14 +20,13 @@ use Illuminate\Support\Str;
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-lightning-bolt';
-
     protected static ?string $recordTitleAttribute = 'name';
-
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $slug = 'shop/products';
+    protected static ?string $slug = 'shop/items';
+
+    protected static ?string $navigationLabel = 'Items';
 
     public static function form(Form $form): Form
     {

@@ -46,6 +46,7 @@ class OrderResource extends Resource
 
                         Forms\Components\Select::make('customer_id')
                             ->relationship('customer', 'name')
+                            ->options(Customer::query()->pluck('name', 'id'))
                             ->label('Customer')
                             ->searchable()
                             ->required()
@@ -250,6 +251,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Order Date')
                     ->date()
+                    ->description(fn($record) => date('H:i', strtotime($record->created_at)))
                     ->toggleable(),
             ])
             ->filters([
