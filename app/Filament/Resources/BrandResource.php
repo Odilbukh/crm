@@ -66,6 +66,7 @@ class BrandResource extends Resource
                     ->date()
                     ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

@@ -281,6 +281,7 @@ class ProductResource extends Resource
                     ->toggleable()
                     ->toggledHiddenByDefault(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

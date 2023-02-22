@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('number', 32)->unique();
             $table->decimal('total_price', 12, 2)->default(0);
             $table->string('currency')->nullable();
-            $table->decimal('shipping_price')->nullable();
+            $table->decimal('shipping_price')->default(0);
             $table->string('shipping_method')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

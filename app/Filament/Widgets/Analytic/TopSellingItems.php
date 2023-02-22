@@ -38,8 +38,8 @@ class TopSellingItems extends ApexChartWidget
     protected function getOptions(): array
     {
         $products = Product::query()->pluck('name', 'id');
-        $series = [];
-        $labels = [];
+        $names = [];
+        $numbers = [];
 
         foreach ($products as $key => $value) {
             $names[] = $value;

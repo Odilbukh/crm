@@ -115,6 +115,7 @@ class CustomerResource extends Resource
                     ->dateTime()
                     ->toggleable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])

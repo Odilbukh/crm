@@ -95,6 +95,8 @@ class OrderResource extends Resource
                             ->required(),
 
                         Forms\Components\TextInput::make('shipping_price')
+                            ->numeric()
+                            ->default(0)
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2)),
 
 
@@ -254,6 +256,7 @@ class OrderResource extends Resource
                     ->description(fn($record) => date('H:i', strtotime($record->created_at)))
                     ->toggleable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
 
@@ -350,5 +353,4 @@ class OrderResource extends Resource
 //            OrderStats::class,
 //        ];
 //    }
-
 }

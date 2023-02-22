@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             ->create();
         $this->command->info('Shop brands created.');
 
-        $customers = Customer::factory()->count(1000)
+        $customers = Customer::factory()->count(100)
             ->create();
         $this->command->info('Shop customers created.');
 
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
             ->create();
         $this->command->info('Shop products created.');
 
-        $orders = Order::factory()->count(1000)
+        $orders = Order::factory()->count(200)
             ->sequence(fn ($sequence) => ['customer_id' => $customers->random(1)->first()->id])
             ->has(Payment::factory()->count(rand(1, 3)))
             ->has(
