@@ -12,6 +12,8 @@ class GeneralSettings extends Settings
 
     public string $site_currency;
 
+    public string $site_country;
+
     public static function group(): string
     {
         return 'general';

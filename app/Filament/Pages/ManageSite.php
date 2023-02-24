@@ -8,6 +8,7 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
+use Squire\Models\Country;
 use Squire\Models\Currency;
 
 class ManageSite extends SettingsPage
@@ -30,6 +31,13 @@ class ManageSite extends SettingsPage
                         fn(string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id')
                     )
                     ->getOptionLabelUsing(fn(GeneralSettings $settings): ?string => Currency::find($settings->site_currency)?->name ?? null)
+                    ->searchable()
+                    ->required(),
+                Select::make('site_country')
+                    ->getSearchResultsUsing(
+                        fn(string $query) => Country::where('name', 'like', "%{$query}%")->pluck('name', 'id')
+                    )
+                    ->getOptionLabelUsing(fn(GeneralSettings $settings): ?string => Country::find($settings->site_country)?->name ?? null)
                     ->searchable()
                     ->required(),
                 Checkbox::make('site_active')

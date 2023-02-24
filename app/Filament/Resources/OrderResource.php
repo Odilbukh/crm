@@ -9,6 +9,7 @@ use App\Forms\AddressForm;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Tax;
 use App\Settings\GeneralSettings;
 use Closure;
 use Filament\Forms;
@@ -80,9 +81,35 @@ class OrderResource extends Resource
                             ])
                             ->default('new')
                             ->required(),
-                        Forms\Components\TextInput::make('currency')
-                            ->default(fn(GeneralSettings $settings): string => Currency::find($settings->site_currency)?->name ?? null)
-                            ->disabled(),
+                        Forms\Components\Select::make('taxes')
+                            ->relationship('taxes', 'name')
+                            ->options(Tax::query()->pluck('name', 'id'))
+                            ->searchable()
+                            ->multiple()
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required(),
+
+                                Forms\Components\TextInput::make('rate')
+                                    ->required(),
+
+                                Forms\Components\Select::make('type')
+                                    ->label('Type')
+                                    ->options([
+                                        'fixed' => 'Fixed',
+                                        'percentage' => 'Percentage',
+                                        'compound' => 'Compound',
+                                        'withholding' => 'Withholding'
+                                    ])
+                                    ->default('fixed')
+                                    ->required(),
+                            ])
+                            ->createOptionAction(function (Forms\Components\Actions\Action $action) {
+                                return $action
+                                    ->modalHeading('Create tax')
+                                    ->modalButton('Create tax')
+                                    ->modalWidth('lg');
+                            }),
                         Forms\Components\Select::make('shipping_method')
                             ->options([
                                 'currier' => 'Currier',
@@ -95,7 +122,6 @@ class OrderResource extends Resource
                             ->numeric()
                             ->default(0)
                             ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2)),
-
 
                         Forms\Components\MarkdownEditor::make('notes')
                             ->columnSpanFull(),
@@ -112,26 +138,21 @@ class OrderResource extends Resource
                     Forms\Components\Card::make()->schema([
                         Forms\Components\TextInput::make('total_price')
                             ->label('Total Price')
-                            ->numeric()
-                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
-//                            ->required()
+                            ->helperText(
+                                'Total price will be calculated when you click to save. It includes shipping price, taxes and items cost.'
+                            )
+                            ->disabled()
+                            ->default(0)
+//                            ->numeric()
+//                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
                             ->columnSpan([
                                 'md' => 3,
                             ]),
-
-//                        Forms\Components\Placeholder::make('created_at')
-//                            ->label('Created at')
-//                            ->content(
-//                                fn(?Order $record): string => $record ? $record->created_at->diffForHumans() : '-'
-//                            )
-//                            ->hidden(fn(?Order $record) => $record === null),
-//
-//                        Forms\Components\Placeholder::make('updated_at')
-//                            ->label('Last modified at')
-//                            ->content(
-//                                fn(?Order $record): string => $record ? $record->updated_at->diffForHumans() : '-'
-//                            )
-//                            ->hidden(fn(?Order $record) => $record === null),
+                        Forms\Components\TextInput::make('currency')
+                            ->default(
+                                fn(GeneralSettings $settings): string => Currency::find($settings->site_currency)?->name
+                            )
+                            ->disabled(),
                     ])
                         ->columnSpan(1),
 
@@ -343,11 +364,4 @@ class OrderResource extends Resource
     {
         return static::$model::where('status', 'new')->count();
     }
-
-//    public static function getWidgets(): array
-//    {
-//        return [
-//            OrderStats::class,
-//        ];
-//    }
 }
