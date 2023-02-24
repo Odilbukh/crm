@@ -17,6 +17,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -173,7 +174,7 @@ class OrderResource extends Resource
                                     ->options(Product::query()->pluck('name', 'id'))
                                     ->searchable()
                                     ->required()
-                                    ->lazy()
+                                    ->reactive()
                                     ->afterStateUpdated(
                                         fn($state, callable $set) => $set(
                                             'unit_price',
@@ -203,11 +204,11 @@ class OrderResource extends Resource
                                         'md' => 1,
                                     ])
                                     ->required()
-                                    ->lazy()
+                                    ->reactive()
                                     ->afterStateUpdated(
                                         fn(Closure $get, $state, callable $set) => $set(
                                             'total_price',
-                                            (int)Product::find($get('product_id'))?->price * (int)$state ?? 0
+                                            Product::find($get('product_id'))?->price * (int)$state ?? 0
                                         )
                                     ),
 
@@ -364,4 +365,5 @@ class OrderResource extends Resource
     {
         return static::$model::where('status', 'new')->count();
     }
+
 }
