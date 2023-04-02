@@ -144,8 +144,6 @@ class OrderResource extends Resource
                             )
                             ->disabled()
                             ->default(0)
-//                            ->numeric()
-//                            ->mask(fn(Forms\Components\TextInput\Mask $mask) => $mask->money('', ' ', 2))
                             ->columnSpan([
                                 'md' => 3,
                             ]),
@@ -365,5 +363,4 @@ class OrderResource extends Resource
     {
         return static::$model::where('status', 'new')->count();
     }
-
 }
